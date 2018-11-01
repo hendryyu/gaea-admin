@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <h1>Salary Type</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>Salary Type List</h3>
+                <a href="addSalaryType">Add New Salary Type</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="salaryType : ${salaryTypes}">
+                            <td th:utext="${salaryType.id}"></td>
+                            <td>
+                                <a th:utext="${salaryType.name}"
+                                   th:href="@{'viewSalaryType?id=' +${salaryType.id} }"></a>
+                            </td>
+                            <td th:utext="${salaryType.description}"></td>
+                            <td th:utext="${salaryType.createdBy}"></td>
+                            <td th:utext="${salaryType.createdDate}"></td>
+                            <td th:utext="${salaryType.updatedBy}"></td>
+                            <td th:utext="${salaryType.updatedDate}"></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removeSalaryType?id=' +${salaryType.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

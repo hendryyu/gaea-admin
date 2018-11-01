@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <h1>City</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>City List</h3>
+                <a href="addCity">Add New City</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="city : ${cities}">
+                            <td th:utext="${city.id}"></td>
+                            <td>
+                                <a th:utext="${city.name}"
+                                   th:href="@{'viewCity?id=' +${city.id} }"></a>
+                            </td>
+                            <td th:utext="${city.code}"></td>
+                            <td th:utext="${city.createdBy}"></td>
+                            <td th:utext="${city.createdDate}"></td>
+                            <td th:utext="${city.updatedBy}"></td>
+                            <td th:utext="${city.updatedDate}"></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removeCity?id=' +${city.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

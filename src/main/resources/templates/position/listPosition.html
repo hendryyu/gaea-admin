@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <h1>Employee</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>Position List</h3>
+                <a href="addPosition">Add New Position</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Position Name</th>
+                            <th>Description</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="position : ${positions}">
+                            <td th:utext="${position.id}"></td>
+                            <td>
+                                <a th:utext="${position.positionName}"
+                                   th:href="@{'viewPosition?id=' +${position.id} }"></a>
+                            </td>
+                            <td th:utext="${position.positionDesc}"></td>
+                            <td th:utext="${position.createdBy}"></td>
+                            <td th:utext="${position.createdDate}"></td>
+                            <td th:utext="${position.updatedBy}"></td>
+                            <td th:utext="${position.updatedDate}"></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removePosition?id=' +${position.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

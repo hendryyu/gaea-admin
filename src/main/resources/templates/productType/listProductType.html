@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <h1>Product Type</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>Product Type List</h3>
+                <a href="addProductType">Add New Product Type</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="productType : ${productTypes}">
+                            <td th:utext="${productType.id}"></td>
+                            <td>
+                                <a th:utext="${productType.typeName}"
+                                   th:href="@{'viewProductType?id=' +${productType.id} }"></a>
+                            </td>
+                            <td th:utext="${productType.typeDesc}"></td>
+                            <td th:utext="${productType.createdBy}"></td>
+                            <td th:utext="${productType.createdDate}"></td>
+                            <td th:utext="${productType.updatedBy}"></td>
+                            <td th:utext="${productType.updatedDate}"></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removeProductType?id=' +${productType.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

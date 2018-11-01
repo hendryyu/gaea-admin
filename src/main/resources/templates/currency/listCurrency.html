@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <h1>Currency</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>Currency List</h3>
+                <a href="addCurrency">Add New Currency</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>  
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="currency : ${currencies}">
+                            <td th:utext="${currency.id}"></td>
+                            <td>
+                                <a th:utext="${currency.currencyCode}"
+                                   th:href="@{'viewCurrency?id=' +${currency.id} }"></a>
+                            </td>
+                            <td th:utext="${currency.currencyName}"></td>
+                            <td th:utext="${currency.createdBy}"></td>
+                            <td th:utext="${currency.createdDate}"></td>
+                            <td th:utext="${currency.updatedBy}"></td>
+                            <td th:utext="${currency.updatedDate}"></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removeCurrency?id=' +${currency.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

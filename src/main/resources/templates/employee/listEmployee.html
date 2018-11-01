@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <h1>Employee</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>Employee List</h3>
+                <a href="addEmployee">Add New Employee</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Employee Number</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>DOB</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="employee : ${employees}">
+                            <td>
+                                <a th:utext="${employee.employeeNum}"
+                                   th:href="@{'viewEmployee?id=' +${employee.id} }"></a>
+                            </td>
+                            <td th:utext="${employee.firstName}"></td>
+                            <td th:utext="${employee.lastName}"></td>
+                            <td class="">
+                                <span th:utext="${employee.dateOfBirth}"></span>, <span th:utext="${employee.placeOfBirth}"></span>
+                            </td>
+                            <td th:utext="${employee.createdBy}"></td>
+                            <td th:utext="${employee.createdDate}"></td>
+                            <td th:utext="${employee.updatedBy}"></td>
+                            <td th:utext="${employee.updatedDate}"></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removeEmployee?id=' +${employee.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>
