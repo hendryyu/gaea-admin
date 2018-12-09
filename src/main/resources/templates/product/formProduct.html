@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container-fluid">
+        <h1>Product</h1>
+        <br/>
+        <div class="row">
+
+
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <form class="form-horizontal" th:action="@{/addProduct}" th:object="${productDto}" method="POST">
+
+                    <input id="id" type="hidden" th:field="*{id}" />
+                    <input id="createdBy1" type="hidden" th:field="*{createdBy}" />
+                    <input id="createdDate1" type="hidden" th:field="*{createdDate}" />
+                    <h4>Detail</h4>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="productCode">Code:</label>
+                        <div class="col-sm-8">
+                            <input id="productCode" type="text" th:field="*{productCode}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="productName">Name:</label>
+                        <div class="col-sm-8">
+                            <input id="productName" type="text" th:field="*{productName}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="productDesc">Description:</label>
+                        <div class="col-sm-8">
+                            <textarea id="productDesc" type="text" th:field="*{productDesc}" class="form-control" />
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="basePrice">Base Price:</label>
+                        <div class="col-sm-8">
+                            <input id="basePrice" type="text" th:field="*{basePrice}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="size">Size:</label>
+                        <div class="col-sm-8">
+                            <input id="size" type="text" th:field="*{size}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="note">Note:</label>
+                        <div class="col-sm-8">
+                            <textarea id="note" type="text" th:field="*{note}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="productTypeId">Product Type:</label>
+                        <div class="col-sm-8">
+                            <select th:field="*{productTypeId}" class="form-control">
+                                <option value="-1"></option>
+                                <option th:each="productType : ${productTypeList}" th:value="${productType.id}" th:text="${productType.typeName}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8" >
+                            <button type="submit" class="btn btn-default" th:if="${productDto.id == null}">Save</button>
+                            <button type="submit" class="btn btn-default" th:if="${productDto.id != null}">Update Detail</button>
+                        </div>
+                    </div>
+                     
+                </form>
+                <!-- Check if errorMessage is not null and not empty -->
+
+                    <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                         style="color:red;font-style:italic;">
+                        ...
+                    </div> 
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <h4>Pictures</h4>
+                <form class="form-horizontal" th:action="@{/uploadProductImage}" th:object="${productPictureDto}" method="POST" th:if="${productDto.id != null}">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="uploadfile">Upload File:</label>
+                        <div class="col-sm-8">
+                            <input type="file" id="uploadfile" placeholder="Upload File"  name="imageFile" class="form-control" accept="image/*"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="pictureName">Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="pictureName" placeholder="Name"  name="pictureName" class="form-control" th:field="*{pictureName}"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="pictureDescription">Description:</label>
+                        <div class="col-sm-8">
+                            <textarea type="text" id="pictureName" placeholder="Description"  name="pictureDescription" class="form-control" th:field="*{pictureDescription}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8">
+                        <button type="submit" class="btn btn-default" id="btnSubmit" th:if="${productDto.id != null}">Add</button>
+                        </div>
+                        
+                    </div>
+                </form>
+<!--<form class="form-inline" th:action="@{/uploadProductImage}" th:object="${productPictureDto}" method="POST">
+                    <input id="employeeId" type="hidden" th:field="*{employeeId}" /> 
+                    <div class="form-group"> 
+                        <label for="type">Type:</label>
+
+                        <select class="form-control" th:field="*{positionId}">
+                            <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.positionName}"></option>
+                        </select>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-default" >Add</button>
+                </form>-->
+                <ul>
+                    <li th:each ="productPicture : ${productPictureList}">
+                        <img th:src="${productPicture.pictureBlob}">
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

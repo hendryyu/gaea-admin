@@ -7,16 +7,54 @@ and open the template in the editor.
     Created on : Oct 20, 2018, 3:08:12 PM
     Author     : ndry93
 */
-h1{
-	color:#0000FF;
+
+html, body{
+    font-size:0.90em;
 }
 
-h2{
-	color:#FF0000;
+table {
+    width:100%;
+}
+.section-title{
+    font-weight:600;
+}
+
+.panel-1{
+/*    border-radius:15px;
+    background: #D5F5E3;*/
+    border: 1.5px solid #D4EFDF;
+    padding:10px;
+    margin:10px 0;
+    flex:1;
+}
+
+.inner-panel-1{
+/*    background: #F2F3F4;
+    border-radius: 5px;*/
+    padding:10px; 
+    margin:10px 0;
+}
+
+.inner-panel-1 .inner-title {
+    font-weight:600;
+    font-size:12px;
+}
+
+.dataTables_wrapper{
+    margin:10px 0;
 }
 
 footer{
-    margin-top:60px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #222;
+    border-color:#080808;
+    color: #9d9d9d;
+    border-radius: 4px;
+    text-align: center;
+    padding:5px 0;
 }
 
 .btn-link{
@@ -32,5 +70,11 @@ footer{
 }
 
 .small-txt{
-    font-size:8px;
+    font-size:10px;
+}
+
+
+textarea{
+    max-width:250px;
+    width:250px;
 }

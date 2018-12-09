@@ -7,18 +7,14 @@ package com.hy.gaeaadmin.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -71,8 +67,6 @@ public class MstCity implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mstCity", fetch = FetchType.LAZY)
-    private List<Address> addressList;
 
     public MstCity() {
     }
@@ -152,14 +146,6 @@ public class MstCity implements Serializable {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
-    }
-
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
     }
 
     @Override

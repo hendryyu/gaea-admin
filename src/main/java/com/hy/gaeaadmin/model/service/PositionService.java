@@ -72,7 +72,7 @@ public class PositionService {
                 result = this.convertToDto(positionRepo.save(mstPosition));
             }
         } catch (ParseException ex) {
-            Logger.getLogger(EmployeeService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PositionService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

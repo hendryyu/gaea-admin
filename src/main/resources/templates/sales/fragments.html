@@ -1,0 +1,419 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+    <body>
+
+        <form id="sales-form" class="form-horizontal" th:action="@{/addSales}" th:object="${salesDto}" method="POST" th:fragment="sales-form">
+            <input id="id" type="hidden" th:field="*{id}" />
+            <input id="createdBy1" type="hidden" th:field="*{createdBy}" />
+            <input id="createdDate1" type="hidden" th:field="*{createdDate}" />
+            <input type="hidden" th:field="*{customerDto.id}" />
+            <input id="createdBy2" type="hidden" th:field="*{customerDto.createdBy}" />
+            <input id="createdDate2" type="hidden" th:field="*{customerDto.createdDate}" />
+
+            <div class="row panel-1">
+                <div class="section-title">Header</div>
+                <br/>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="trxNum">Number:</label>
+                        <div class="col-sm-8" >
+                            <input id="trxNum" type="text" th:field="*{trxNum}" class="form-control" readonly/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Type</label>
+                        <div class="col-sm-8">
+                            <ul style="list-style-type: none;padding-left:0;margin: 5px 0;">
+                                <li th:each="salesType : ${salesTypeList}" style="float:left;margin-right:5px;">
+                                    <input type="radio" th:field="*{salesTypeId}" th:value="${salesType.id}" />
+                                    <label th:for="${#ids.prev('salesTypeId')}" th:text="${salesType.name}" ></label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="trxDate">Date:</label>
+                        <div class="col-sm-8">
+                            <input id="trxDate" type="date" th:field="*{trxDate}" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="trxNote">Note:</label>
+                        <div class="col-sm-8">
+                            <textarea id="trxNote" type="text" th:field="*{trxNote}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="occassionType">Occassion:</label>
+                        <div class="col-sm-8">
+                            <ul style="list-style-type: none;padding-left:0;margin: 5px 0;">
+                                <li style="float:left;margin-right:5px;">
+                                    <input type="radio" th:field="*{occassionType}" th:value="GRADUATION" />
+                                    <label th:for="${#ids.prev('occassionType')}" th:text="Graduation" ></label>
+                                </li>
+                                <li style="float:left;margin-right:5px;">
+                                    <input type="radio" th:field="*{occassionType}" th:value="EVENT" />
+                                    <label th:for="${#ids.prev('occassionType')}" th:text="Event" ></label>
+                                </li>
+                                <li style="float:left;margin-right:5px;">
+                                    <input type="radio" th:field="*{occassionType}" th:value="OTHERS" />
+                                    <label th:for="${#ids.prev('occassionType')}" th:text="Others" ></label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="university">University:</label>
+                        <div class="col-sm-8">
+                            <select th:field="*{universityId}" class="form-control">
+                                <option value="-1"></option>
+                                <option th:each="university : ${universityList}" th:value="${university.id}" th:text="${university.universityName}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="eventDate">Event Date:</label>
+                        <div class="col-sm-8">
+                            <input id="eventDate" type="date" th:field="*{eventDate}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="eventLocation">Event Location:</label>
+                        <div class="col-sm-8">
+                            <input id="eventLocation" type="text" th:field="*{eventLocation}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row panel-1">
+                <div class="section-title">Customer</div>
+                <br/>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="firstName">Name:</label>
+                        <div class="col-sm-8">
+                            <input name="firstName" type="text" th:field="*{customerDto.firstName}" class="form-control" placeholder="first" style="margin-bottom: 15px;" />
+                            <input name="lastName" type="text" th:field="*{customerDto.lastName}" class="form-control" placeholder="last" />
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="firstName">DOB:</label>
+                        <div class="col-sm-8">
+                            <input name="dateOfBirth" type="date" th:field="*{customerDto.dateOfBirth}" class="form-control" style="margin-bottom: 15px;" />
+                            <input name="placeOfBirth" type="text" th:field="*{customerDto.placeOfBirth}" class="form-control" placeholder="place" />
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="contactPhone1">Contact:</label>
+                        <div class="col-sm-8">
+                            <input name="contactPhone1" type="tel" th:field="*{customerDto.contactPhone1}" required class="form-control" placeholder="phone" style="margin-bottom: 15px;" />
+                            <input name="contactPhone2" type="tel" th:field="*{customerDto.contactPhone2}" class="form-control" placeholder="phone (optional)"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="contactEmail1">Email:</label>
+                        <div class="col-sm-8">
+                            <input name="contactEmail1" type="email" th:field="*{customerDto.contactEmail1}" class="form-control" placeholder="email"  />
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-sm-4" for="addrStreet1">Address:</label>
+                        <div class="col-sm-8">
+                            <input name="addrStreet1" type="text" th:field="*{customerDto.addrStreet1}" class="form-control" placeholder="Address 1" style="margin-bottom:15px;" />
+                            <input name="addrStreet2" type="text" th:field="*{customerDto.addrStreet2}" class="form-control" placeholder="Address 2" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" th:if="${salesDto.id == null}">
+                        <label class="control-label col-sm-4" for="cust-modal-btn"></label>
+                        <div class="col-sm-4 small-txt">
+                            <a id="open-cust-modal-btn" href="#" >Select existing customers</a>
+                        </div>
+                        <div class="col-sm-4 small-txt">
+                            <a id="reset-cust-btn" href="#" >Reset customer</a>
+                        </div>
+                    </div>
+                    <div class="form-group update-customer" >
+                        <label class="control-label col-sm-4"></label>
+                        <div class="col-sm-8">
+                            <ul style="list-style-type: none;padding-left:0;" class="small-txt">
+                                <li style="float:left;margin-right:5px;">
+                                    <input type="radio" th:field="*{updateCustomer}" th:value="false" />
+                                    <label th:for="${#ids.prev('updateCustomer')}" >Do not update customer</label>
+                                </li>
+                                <li style="float:left;margin-right:5px;">
+                                    <input type="radio" th:field="*{updateCustomer}" th:value="true" />
+                                    <label th:for="${#ids.prev('updateCustomer')}" >I want to update customer</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8" >
+                            <button type="submit" class="btn btn-default" th:if="${salesDto.id == null}">Submit</button>
+                            <button type="submit" class="btn btn-default" th:if="${salesDto.id != null}">Update</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Check if errorMessage is not null and not empty -->
+
+            </div>
+        </form>
+
+        <table id="salesDetails-tbl" class="table table-striped table-bordered" style="width:100%" th:fragment="sales-dtl-tbl">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Sales Price</th>
+                    <th>Note</th>
+                    <th>Fitting</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each ="salesDetail : ${salesDetailList}">
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span th:utext="${salesDetail.productDto.productCode}"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span th:utext="${salesDetail.productDto.productName}"></span>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span th:utext="${salesDetail.salesPrice}"></span></td>
+                    <td><span  th:utext="${salesDetail.note}"></span></td>
+                    <td>
+                        <a id="add-fitting-btn" href="#" th:onclick="'javascript:modalFittingOpen(event,' + ${salesDetail.salesDto.id} + ',' + ${salesDetail.id} + ');'">
+                            <ul th:each ="fitting : ${salesDetail.salesDetailFittingDtoList}" th:if="${#lists.size(salesDetail.salesDetailFittingDtoList) > 0}">
+                                <li th:utext="${fitting.fittingDate}"></li>
+                            </ul>
+                            <span th:if="${#lists.size(salesDetail.salesDetailFittingDtoList) < 1}">n/a</span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:utext="Remove" 
+                           th:href="@{'removeSalesDetail?id=' +${salesDetail.id} }"></a>
+                    </td>
+                </tr>
+            </tbody>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#salesDetails-tbl').DataTable();
+                });
+            </script>
+        </table>
+
+        <div id="customer-modal" class="modal fade" role="dialog" th:fragment="customer-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>Customers</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--                        <b>Search</b>
+                                                <form class="form-horizontal"  >
+                                                    <div class="form-group" >
+                                                        <label class="control-label col-sm-4" for="name">Name:</label>
+                                                        <div class="col-sm-6">
+                                                            <input name="name" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" >
+                                                        <label class="control-label col-sm-4" for="phone">Phone:</label>
+                                                        <div class="col-sm-6">
+                                                            <input name="phone" type="tel" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" style="display:none;">
+                                                        <label class="control-label col-sm-4" for="email">Email:</label>
+                                                        <div class="col-sm-6">
+                                                            <input name="email" type="email" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group"> 
+                                                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8" >
+                                                            <a id="custf-reset-btn" href="#" class="btn btn-default" >Clear</a>
+                                                            <a id="custf-search-btn" href="#" class="btn btn-default" >Search</a>
+                                                        </div>
+                                                    </div>
+                                                </form>-->
+                        <b>Table of Customers</b>
+                        <div th:replace="customer/listCustomer :: customer-tbl"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="product-modal" class="modal fade" role="dialog" th:fragment="product-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>Products</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--                        <b>Search</b>
+                                                <form class="form-horizontal"  >
+                                                    <div class="form-group" >
+                                                        <label class="control-label col-sm-4" for="name">Code:</label>
+                                                        <div class="col-sm-6">
+                                                            <input name="name" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" >
+                                                        <label class="control-label col-sm-4" for="phone">Name:</label>
+                                                        <div class="col-sm-6">
+                                                            <input name="phone" type="tel" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group"> 
+                                                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8" >
+                                                            <a id="prodf-reset-btn" href="#" class="btn btn-default" >Clear</a>
+                                                            <a id="prodf-search-btn" href="#" class="btn btn-default" >Search</a>
+                                                        </div>
+                                                    </div>
+                                                </form>-->
+                        <b>Table of Products</b>
+                        <div th:replace="product/listProduct :: product-tbl"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="fitting-modal" class="modal fade" role="dialog" th:fragment="fitting-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>Fitting</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="fittingTblHolder"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div id="university-modal" class="modal fade" role="dialog" th:fragment="university-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>University</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="universityTblHolder"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+<!--        <div th:fragment="fitting-tbl" th:unless="${#lists.isEmpty(salesDetailFittingList)}" class="results-block">-->
+        <table id="fittingModal-tbl" class="table table-striped table-bordered" style="width:100%" th:fragment="fitting-modal-tbl">
+            <thead>
+                <tr>
+                    <th>Fitting Date</th>
+                    <th>Note</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each ="salesDetailFitting : ${salesDetailFittingList}">
+                    <td><span th:utext="${salesDetailFitting.fittingDate}"></span></td>
+                    <td><span th:utext="${salesDetailFitting.note}"></span></td>
+                    <td>
+                        <a th:utext="Remove" 
+                           th:href="@{'removeFitting?salesId=' +${salesDetail.id} }"></a>
+                    </td>
+                </tr>
+            </tbody>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#fittingModal-tbl').DataTable();
+                });
+            </script>
+        </table>
+<!--        </div>-->
+
+        <!--        <table class="table table-striped" th:fragment="customer-modal-tbl" id="customer-modal-tbl">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="customer : ${customers}">
+                            <td>
+                                <span th:utext="${customer.firstName}"></span> <span th:utext="${customer.lastName}"></span>
+                            </td>
+                            <td >
+                                <p th:utext="${customer.contactPhone1}" th:if="${customer.contactPhone1 != ''}"></p>
+                                <p th:utext="${customer.contactPhone2}" th:if="${customer.contactPhone2 != ''}"></p>
+                            </td>
+                            <td >
+                                <p th:utext="${customer.contactEmail1}" th:if="${customer.contactEmail1 != ''}"></p>
+                                <p th:utext="${customer.contactEmail2}" th:if="${customer.contactEmail2 != ''}"></p>
+                            </td>
+                            <td>
+                                <a th:utext="Select" class="btn btn-default" href="#" 
+                                   th:onclick="'javascript:modalSelectCustomer(event,' + ${customer.id} + ');'"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            var table = $('#customer-modal-tbl').DataTable();
+                            $('#customer-modal-tbl tbody').on( 'click', 'tr', function () {
+                                if ( $(this).hasClass('selected') ) {
+                                    $(this).removeClass('selected');
+                                }
+                                else {
+                                    table.$('tr.selected').removeClass('selected');
+                                    $(this).addClass('selected');
+                                }
+                            } );
+                        });
+                    </script>
+                </table>-->
+
+
+    </body>
+</html>

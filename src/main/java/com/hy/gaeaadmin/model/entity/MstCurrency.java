@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -69,7 +68,7 @@ public class MstCurrency implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mstCurrency", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mstCurrency")
     private List<ProductStock> productStockList;
 
     public MstCurrency() {

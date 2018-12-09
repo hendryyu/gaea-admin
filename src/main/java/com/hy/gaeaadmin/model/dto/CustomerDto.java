@@ -6,7 +6,6 @@
 package com.hy.gaeaadmin.model.dto;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -16,13 +15,21 @@ public class CustomerDto {
     private Integer id;
     private String firstName;
     private String lastName;
+    private Date dateOfBirth;
+    private String placeOfBirth;
     private Integer enable;
     private String createdBy;
     private Date createdDate;
     private String updatedBy;
     private Date updatedDate;
-    private List<AddressDto> addressList;
-    private List<ContactDto> contactList;
+    private String addrStreet1;
+    private String addrStreet2;
+    private Integer addrPostalCode;
+    private Integer addrCityId;
+    private String contactPhone1;
+    private String contactPhone2;
+    private String contactEmail1;
+    private String contactEmail2;
 
     public Integer getId() {
         return id;
@@ -88,21 +95,83 @@ public class CustomerDto {
         this.updatedDate = updatedDate;
     }
 
-    public List<AddressDto> getAddressList() {
-        return addressList;
+    public String getAddrStreet1() {
+        return addrStreet1;
     }
 
-    public void setAddressList(List<AddressDto> addressList) {
-        this.addressList = addressList;
+    public void setAddrStreet1(String addrStreet1) {
+        this.addrStreet1 = addrStreet1;
     }
 
-    public List<ContactDto> getContactList() {
-        return contactList;
+    public String getAddrStreet2() {
+        return addrStreet2;
     }
 
-    public void setContactList(List<ContactDto> contactList) {
-        this.contactList = contactList;
+    public void setAddrStreet2(String addrStreet2) {
+        this.addrStreet2 = addrStreet2;
     }
-    
-    
+
+    public Integer getAddrPostalCode() {
+        return addrPostalCode;
+    }
+
+    public void setAddrPostalCode(Integer addrPostalCode) {
+        this.addrPostalCode = addrPostalCode;
+    }
+
+    public Integer getAddrCityId() {
+        return addrCityId;
+    }
+
+    public void setAddrCityId(Integer addrCityId) {
+        this.addrCityId = addrCityId;
+    }
+
+    public String getContactPhone1() {
+        return contactPhone1;
+    }
+
+    public void setContactPhone1(String contactPhone1) {
+        this.contactPhone1 = contactPhone1;
+    }
+
+    public String getContactPhone2() {
+        return contactPhone2;
+    }
+
+    public void setContactPhone2(String contactPhone2) {
+        this.contactPhone2 = contactPhone2;
+    }
+
+    public String getContactEmail1() {
+        return contactEmail1;
+    }
+
+    public void setContactEmail1(String contactEmail1) {
+        this.contactEmail1 = contactEmail1;
+    }
+
+    public String getContactEmail2() {
+        return contactEmail2;
+    }
+
+    public void setContactEmail2(String contactEmail2) {
+        this.contactEmail2 = contactEmail2;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
 }

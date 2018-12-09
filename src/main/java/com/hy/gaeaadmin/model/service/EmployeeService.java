@@ -5,14 +5,10 @@
  */
 package com.hy.gaeaadmin.model.service;
 
-import com.hy.gaeaadmin.model.dto.AddressDto;
-import com.hy.gaeaadmin.model.dto.ContactDto;
-import com.hy.gaeaadmin.model.dto.ContactTypeDto;
 import com.hy.gaeaadmin.model.dto.EmployeeDto;
-import com.hy.gaeaadmin.model.entity.Address;
-import com.hy.gaeaadmin.model.entity.Contact;
+import com.hy.gaeaadmin.model.dto.PositionDto;
 import com.hy.gaeaadmin.model.entity.Employee;
-import com.hy.gaeaadmin.model.entity.MstContactType;
+import com.hy.gaeaadmin.model.entity.MstPosition;
 import com.hy.gaeaadmin.model.repo.EmployeeRepo;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -34,12 +30,14 @@ public class EmployeeService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private EmployeeRepo empRepo;
+    private EmployeeRepo employeeRepo;
+    @Autowired
+    private PositionService positionService;
     
     
     public List<EmployeeDto> list(){
         List<EmployeeDto> empList = new ArrayList<>();
-        for(Employee data : empRepo.findAll()){
+        for(Employee data : employeeRepo.findAll()){
             empList.add(this.convertToDto(data));
         }
         return empList;
@@ -48,8 +46,8 @@ public class EmployeeService {
     public void delete(Integer employeeId){
         
         if (employeeId == null) return;
-        Employee emp = empRepo.findById(employeeId).orElse(null);
-        empRepo.delete(emp);
+        Employee emp = employeeRepo.findById(employeeId).orElse(null);
+        employeeRepo.delete(emp);
     }
     
     public EmployeeDto save(EmployeeDto empDto){
@@ -61,13 +59,13 @@ public class EmployeeService {
                 empTemp.setEmployeeNum("1234");
                 empTemp.setCreatedBy("spring");
                 empTemp.setCreatedDate(new Date());
-                result = this.convertToDto(empRepo.save(this.convertToEntity(empTemp)));
+                result = this.convertToDto(employeeRepo.save(this.convertToEntity(empTemp)));
             }else{
                 empDto.setUpdatedBy("1234");
                 empDto.setUpdatedDate(new Date());
                 
                 Employee employee = this.convertToEntity(empDto);
-                result = this.convertToDto(empRepo.save(employee));
+                result = this.convertToDto(employeeRepo.save(employee));
             }
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeService.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,9 +75,20 @@ public class EmployeeService {
     
     public EmployeeDto findById(Integer employeeId){
         if(employeeId == null) return null;
-        Optional<Employee> emp = empRepo.findById(employeeId);
+        Optional<Employee> emp = employeeRepo.findById(employeeId);
         Employee employee = emp.orElse(null);
         return employee == null ? null : this.convertToDto(employee);
+    }
+    
+    public void deleteEmployeePosition(Integer employeeId, Integer positionId){
+        EmployeeDto employeeDto = this.findById(employeeId);
+        for(PositionDto positionDto : employeeDto.getPositionList()){
+            if(positionDto.getId() == positionId){
+                employeeDto.getPositionList().remove(positionDto);
+                break;
+            }
+        }
+        this.save(employeeDto);
     }
     
 //    public EmployeeDto saveEmployeeContact(Integer employeeId,Integer contactTypeId,String contactValue){
@@ -116,6 +125,15 @@ public class EmployeeService {
     
     public Employee convertToEntity(EmployeeDto employeeDto) throws ParseException {
         Employee employee = modelMapper.map(employeeDto, Employee.class);
+        
+        List<MstPosition> mstPositionList = new ArrayList<>();
+        for(PositionDto positionDto : employeeDto.getPositionList()){
+            MstPosition mstPosition = positionService.convertToEntity(positionDto);
+            mstPositionList.add(mstPosition);
+        }
+        
+        employee.setMstPositionList(mstPositionList);
+        
         return employee;
     }
     

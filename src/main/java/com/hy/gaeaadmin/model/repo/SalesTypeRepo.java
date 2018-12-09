@@ -5,14 +5,13 @@
  */
 package com.hy.gaeaadmin.model.repo;
 
-import com.hy.gaeaadmin.model.entity.Address;
-import com.hy.gaeaadmin.model.inter.QueryPredicateExecutor;
+import com.hy.gaeaadmin.model.entity.MstSalesType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author hendryyu
  */
-public interface AddressRepo extends JpaRepository<Address, Integer>, QueryPredicateExecutor<Address> {
+public interface SalesTypeRepo extends JpaRepository<MstSalesType, Integer> {
     
 }

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -50,7 +49,6 @@ public class CityController {
     public String addCity(Model model) {
         CityDto cityDto = new CityDto();
         model.addAttribute("cityDto", cityDto);
-        model.addAttribute("editMode", true);
         return FORM_VIEW_HTML;
     }
 
@@ -58,7 +56,6 @@ public class CityController {
     public String viewCity(Model model, @RequestParam(value = "id", required = true) Integer cityId) {
         CityDto cityDto = cityService.findById(cityId);
         model.addAttribute("cityDto", cityDto);
-        model.addAttribute("editMode", false);
         return FORM_VIEW_HTML;
     }
 
@@ -76,8 +73,6 @@ public class CityController {
         }
 
         model.addAttribute("errorMessage", "City Name and Code required");
-        model.addAttribute("editMode", true); 
-
         return FORM_VIEW_HTML;
     }
     

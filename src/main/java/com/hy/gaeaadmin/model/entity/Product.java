@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,12 +49,23 @@ public class Product implements Serializable {
     private String productCode;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "product_name")
-    private int productName;
+    private String productName;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "product_desc")
-    private int productDesc;
+    private String productDesc;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "base_price")
+    private Double basePrice;
+    @Size(max = 255)
+    @Column(name = "size")
+    private String size;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
     @Basic(optional = false)
     @NotNull
     @Column(name = "enable")
@@ -77,13 +87,13 @@ public class Product implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
     @JoinColumn(name = "product_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private MstProductType mstProductType;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<ProductPicture> productPictureList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
-    private List<ProductPictures> productPicturesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<SalesDetail> salesDetailList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<ProductStock> productStockList;
 
     public Product() {
@@ -93,7 +103,7 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String productCode, int productName, int productDesc, int enable, String createdBy, Date createdDate) {
+    public Product(Integer id, String productCode, String productName, String productDesc, int enable, String createdBy, Date createdDate) {
         this.id = id;
         this.productCode = productCode;
         this.productName = productName;
@@ -119,20 +129,44 @@ public class Product implements Serializable {
         this.productCode = productCode;
     }
 
-    public int getProductName() {
+    public String getProductName() {
         return productName;
     }
 
-    public void setProductName(int productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
 
-    public int getProductDesc() {
+    public String getProductDesc() {
         return productDesc;
     }
 
-    public void setProductDesc(int productDesc) {
+    public void setProductDesc(String productDesc) {
         this.productDesc = productDesc;
+    }
+
+    public Double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(Double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public int getEnable() {
@@ -191,12 +225,12 @@ public class Product implements Serializable {
         this.productPictureList = productPictureList;
     }
 
-    public List<ProductPictures> getProductPicturesList() {
-        return productPicturesList;
+    public List<SalesDetail> getSalesDetailList() {
+        return salesDetailList;
     }
 
-    public void setProductPicturesList(List<ProductPictures> productPicturesList) {
-        this.productPicturesList = productPicturesList;
+    public void setSalesDetailList(List<SalesDetail> salesDetailList) {
+        this.salesDetailList = salesDetailList;
     }
 
     public List<ProductStock> getProductStockList() {

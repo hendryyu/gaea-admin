@@ -83,7 +83,7 @@ public class CurrencyService {
                 result = this.convertToDto(currencyRepo.save(mstCurrency));
             }
         } catch (ParseException ex) {
-            Logger.getLogger(EmployeeService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurrencyService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

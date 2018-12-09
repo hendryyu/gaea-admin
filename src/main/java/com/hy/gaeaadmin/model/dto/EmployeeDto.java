@@ -25,9 +25,16 @@ public class EmployeeDto {
     private Date createdDate;
     private String updatedBy;
     private Date updatedDate;
-    private List<AddressDto> addressList = new ArrayList<>();
-    private List<ContactDto> contactList = new ArrayList<>();
+    private List<PositionDto> positionList = new ArrayList<>();
     private List<SalaryDto> salaryList;
+    private String addrStreet1;
+    private String addrStreet2;
+    private Integer addrPostalCode;
+    private Integer addrCityId;
+    private String contactPhone1;
+    private String contactPhone2;
+    private String contactEmail1;
+    private String contactEmail2;
 
     public Integer getId() {
         return id;
@@ -37,7 +44,13 @@ public class EmployeeDto {
         this.id = id;
     }
 
-    
+    public List<PositionDto> getPositionList() {
+        return positionList;
+    }
+
+    public void setPositionList(List<PositionDto> positionList) {
+        this.positionList = positionList;
+    }
 
     public String getEmployeeNum() {
         return employeeNum;
@@ -119,22 +132,6 @@ public class EmployeeDto {
         this.updatedDate = updatedDate;
     }
 
-    public List<AddressDto> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<AddressDto> addressList) {
-        this.addressList = addressList;
-    }
-
-    public List<ContactDto> getContactList() {
-        return contactList;
-    }
-
-    public void setContactList(List<ContactDto> contactList) {
-        this.contactList = contactList;
-    }
-
     public List<SalaryDto> getSalaryList() {
         return salaryList;
     }
@@ -142,5 +139,71 @@ public class EmployeeDto {
     public void setSalaryList(List<SalaryDto> salaryList) {
         this.salaryList = salaryList;
     }
+
+    public String getAddrStreet1() {
+        return addrStreet1;
+    }
+
+    public void setAddrStreet1(String addrStreet1) {
+        this.addrStreet1 = addrStreet1;
+    }
+
+    public String getAddrStreet2() {
+        return addrStreet2;
+    }
+
+    public void setAddrStreet2(String addrStreet2) {
+        this.addrStreet2 = addrStreet2;
+    }
+
+    public Integer getAddrPostalCode() {
+        return addrPostalCode;
+    }
+
+    public void setAddrPostalCode(Integer addrPostalCode) {
+        this.addrPostalCode = addrPostalCode;
+    }
+
+    public Integer getAddrCityId() {
+        return addrCityId;
+    }
+
+    public void setAddrCityId(Integer addrCityId) {
+        this.addrCityId = addrCityId;
+    }
+
+    public String getContactPhone1() {
+        return contactPhone1;
+    }
+
+    public void setContactPhone1(String contactPhone1) {
+        this.contactPhone1 = contactPhone1;
+    }
+
+    public String getContactPhone2() {
+        return contactPhone2;
+    }
+
+    public void setContactPhone2(String contactPhone2) {
+        this.contactPhone2 = contactPhone2;
+    }
+
+    public String getContactEmail1() {
+        return contactEmail1;
+    }
+
+    public void setContactEmail1(String contactEmail1) {
+        this.contactEmail1 = contactEmail1;
+    }
+
+    public String getContactEmail2() {
+        return contactEmail2;
+    }
+
+    public void setContactEmail2(String contactEmail2) {
+        this.contactEmail2 = contactEmail2;
+    }
+    
+    
     
 }

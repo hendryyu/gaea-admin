@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container-fluid">
+        <h1>Sales</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <a href="addSales" class="btn btn-default">Add New Sales</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <table id="sales-tbl" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Trx Num</th>
+                            <th>Trx Date</th>
+                            <th>Trx Type</th>
+                            <th>Customer</th>
+                            <th>Order</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="sale : ${sales}">
+                            <td th:utext="${sale.id}"></td>
+                            <td ><a th:utext="${sale.trxNum}"
+                                   th:href="@{'viewSales?id=' +${sale.id} }"></a></td>
+                            <td th:utext="${sale.trxDate}"></td>
+                            <td th:utext="${sale.salesTypeName}"></td>
+                            <td >
+                                <a th:href="@{'viewCustomer?id=' +${sale.customerDto.id} }">
+                                    <span th:utext="${sale.customerDto.firstName}"></span> <span th:utext="${sale.customerDto.lastName}"></span>
+                                </a>
+                                <ul class="small-txt">
+                                    <li >
+                                        <span>Contact: </span><span th:utext="${sale.customerDto.contactPhone1}"></span><span th:if="${sale.customerDto.contactPhone2 != '' && sale.customerDto.contactPhone2 != null}"> / </span><span th:utext="${sale.customerDto.contactPhone2}"></span>
+                                    </li>
+                                    <li>
+                                        <span>Email: </span><span th:utext="${sale.customerDto.contactEmail1}"></span>
+                                    </li>
+                                    <li>
+                                        <span>Address: </span><span th:utext="${sale.customerDto.addrStreet1}"></span>&nbsp;<span th:utext="${sale.customerDto.addrStreet2}"></span>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removeSales?id=' +${sale.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <script type="text/javascript">
+        $(document).ready(function() {
+          var salesListTbl = $('#sales-tbl').DataTable();
+          salesListTbl.order( [ 0, 'desc' ] ).draw();
+        });
+    </script>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

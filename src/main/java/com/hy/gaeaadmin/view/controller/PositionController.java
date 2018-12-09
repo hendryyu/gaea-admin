@@ -48,7 +48,6 @@ public class PositionController {
     public String addPosition(Model model) {
         PositionDto positionDto = new PositionDto();
         model.addAttribute("positionDto", positionDto);
-        model.addAttribute("editMode", true);
         return FORM_VIEW_HTML;
     }
 
@@ -56,7 +55,6 @@ public class PositionController {
     public String viewPosition(Model model, @RequestParam(value = "id", required = true) Integer positionId) {
         PositionDto positionDto = positionService.findById(positionId);
         model.addAttribute("positionDto", positionDto);
-        model.addAttribute("editMode", false);
         return FORM_VIEW_HTML;
     }
 
@@ -73,7 +71,6 @@ public class PositionController {
         }
 
         model.addAttribute("errorMessage", "Position Name and Description required");
-        model.addAttribute("editMode", true); 
 
         return FORM_VIEW_HTML;
     }

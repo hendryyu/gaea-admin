@@ -70,7 +70,7 @@ public class UomService {
                 result = this.convertToDto(uomRepo.save(mstUom));
             }
         } catch (ParseException ex) {
-            Logger.getLogger(EmployeeService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UomService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

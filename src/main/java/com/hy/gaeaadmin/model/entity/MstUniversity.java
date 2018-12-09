@@ -11,16 +11,12 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,10 +28,10 @@ import javax.validation.constraints.Size;
  * @author hendryyu
  */
 @Entity
-@Table(name = "address")
+@Table(name = "mst_university")
 @NamedQueries({
-    @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a")})
-public class Address implements Serializable {
+    @NamedQuery(name = "MstUniversity.findAll", query = "SELECT m FROM MstUniversity m")})
+public class MstUniversity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,14 +42,20 @@ public class Address implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "street1")
-    private String street1;
+    @Column(name = "university_name")
+    private String universityName;
     @Size(max = 255)
-    @Column(name = "street2")
-    private String street2;
-    @Size(max = 10)
-    @Column(name = "postal_code")
-    private String postalCode;
+    @Column(name = "university_address1")
+    private String universityAddress1;
+    @Size(max = 255)
+    @Column(name = "university_address2")
+    private String universityAddress2;
+    @Size(max = 255)
+    @Column(name = "university_phone1")
+    private String universityPhone1;
+    @Size(max = 255)
+    @Column(name = "university_phone2")
+    private String universityPhone2;
     @Basic(optional = false)
     @NotNull
     @Column(name = "enable")
@@ -74,30 +76,19 @@ public class Address implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
-    @JoinTable(name = "customer_address", joinColumns = {
-        @JoinColumn(name = "address_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "customer_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Customer> customerList;
-    @JoinTable(name = "employee_address", joinColumns = {
-        @JoinColumn(name = "address_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "employee_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
-    @JoinColumn(name = "city_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private MstCity mstCity;
+    @OneToMany(mappedBy = "mstUniversity")
+    private List<Sales> salesList;
 
-    public Address() {
+    public MstUniversity() {
     }
 
-    public Address(Integer id) {
+    public MstUniversity(Integer id) {
         this.id = id;
     }
 
-    public Address(Integer id, String street1, int enable, String createdBy, Date createdDate) {
+    public MstUniversity(Integer id, String universityName, int enable, String createdBy, Date createdDate) {
         this.id = id;
-        this.street1 = street1;
+        this.universityName = universityName;
         this.enable = enable;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
@@ -111,28 +102,44 @@ public class Address implements Serializable {
         this.id = id;
     }
 
-    public String getStreet1() {
-        return street1;
+    public String getUniversityName() {
+        return universityName;
     }
 
-    public void setStreet1(String street1) {
-        this.street1 = street1;
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
     }
 
-    public String getStreet2() {
-        return street2;
+    public String getUniversityAddress1() {
+        return universityAddress1;
     }
 
-    public void setStreet2(String street2) {
-        this.street2 = street2;
+    public void setUniversityAddress1(String universityAddress1) {
+        this.universityAddress1 = universityAddress1;
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    public String getUniversityAddress2() {
+        return universityAddress2;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setUniversityAddress2(String universityAddress2) {
+        this.universityAddress2 = universityAddress2;
+    }
+
+    public String getUniversityPhone1() {
+        return universityPhone1;
+    }
+
+    public void setUniversityPhone1(String universityPhone1) {
+        this.universityPhone1 = universityPhone1;
+    }
+
+    public String getUniversityPhone2() {
+        return universityPhone2;
+    }
+
+    public void setUniversityPhone2(String universityPhone2) {
+        this.universityPhone2 = universityPhone2;
     }
 
     public int getEnable() {
@@ -175,28 +182,12 @@ public class Address implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public List<Customer> getCustomerList() {
-        return customerList;
+    public List<Sales> getSalesList() {
+        return salesList;
     }
 
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
-    }
-
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-
-    public MstCity getMstCity() {
-        return mstCity;
-    }
-
-    public void setMstCity(MstCity mstCity) {
-        this.mstCity = mstCity;
+    public void setSalesList(List<Sales> salesList) {
+        this.salesList = salesList;
     }
 
     @Override
@@ -209,10 +200,10 @@ public class Address implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Address)) {
+        if (!(object instanceof MstUniversity)) {
             return false;
         }
-        Address other = (Address) object;
+        MstUniversity other = (MstUniversity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -221,7 +212,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hy.gaeaadmin.model.entity.Address[ id=" + id + " ]";
+        return "com.hy.gaeaadmin.model.entity.MstUniversity[ id=" + id + " ]";
     }
     
 }

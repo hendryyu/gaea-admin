@@ -50,7 +50,6 @@ public class SalaryTypeController {
     public String addSalaryType(Model model) {
         SalaryTypeDto salaryTypeDto = new SalaryTypeDto();
         model.addAttribute("salaryTypeDto", salaryTypeDto);
-        model.addAttribute("editMode", true);
         return FORM_VIEW_HTML;
     }
 
@@ -58,7 +57,6 @@ public class SalaryTypeController {
     public String viewSalaryType(Model model, @RequestParam(value = "id", required = true) Integer salaryTypeId) {
         SalaryTypeDto salaryTypeDto = salaryTypeService.findById(salaryTypeId);
         model.addAttribute("salaryTypeDto", salaryTypeDto);
-        model.addAttribute("editMode", false);
         return FORM_VIEW_HTML;
     }
 
@@ -74,7 +72,6 @@ public class SalaryTypeController {
         }
 
         model.addAttribute("errorMessage", "Salary Type Name and Description required");
-        model.addAttribute("editMode", true); 
 
         return FORM_VIEW_HTML;
     }

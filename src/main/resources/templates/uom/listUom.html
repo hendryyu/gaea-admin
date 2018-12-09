@@ -7,13 +7,13 @@
 
     <div th:replace="fragments/header :: header"/>
 
-    <div class="container">
-        <h1>UOM</h1>
+    <div class="container-fluid">
+        <h1>Unit of Measurement</h1>
         <br/>
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
-                <h3>UOM List</h3>
-                <a href="addUom">Add New UOM</a>
+                <h3>Unit of Measurement List</h3>
+                <a href="addUom">Add New Unit of Measurement</a>
                 <div th:if="${errorMessage}" th:utext="${errorMessage}"
                      style="color:red;font-style:italic;">
                     ...

@@ -25,7 +25,6 @@ public class UserDto {
     private Date createdDate;
     private String updatedBy;
     private Date updatedDate;
-    private List<ContactDto> userContactList = new ArrayList<>();
 
     
     
@@ -117,13 +116,6 @@ public class UserDto {
         this.updatedDate = updatedDate;
     }
 
-    public List<ContactDto> getUserContactList() {
-        return userContactList;
-    }
-
-    public void setUserContactList(List<ContactDto> userContactList) {
-        this.userContactList = userContactList;
-    }
     
     
 }

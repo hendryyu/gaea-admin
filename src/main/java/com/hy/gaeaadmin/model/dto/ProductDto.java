@@ -16,16 +16,20 @@ import java.util.List;
 public class ProductDto {
     private Integer id;
     private String productCode;
-    private int productName;
-    private int productDesc;
+    private String productName;
+    private String productDesc;
     private int enable;
     private String createdBy;
     private Date createdDate;
     private String updatedBy;
     private Date updatedDate;
-    private ProductTypeDto productTypeDto;
+    private int productTypeId;
+    private String productTypeName;
     private List<ProductPictureDto> productPictureDtoList = new ArrayList<>();
     private List<ProductStockDto> productStockList = new ArrayList<>();
+    private double basePrice;
+    private String size;
+    private String note;
 
     public Integer getId() {
         return id;
@@ -43,19 +47,19 @@ public class ProductDto {
         this.productCode = productCode;
     }
 
-    public int getProductName() {
+    public String getProductName() {
         return productName;
     }
 
-    public void setProductName(int productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
 
-    public int getProductDesc() {
+    public String getProductDesc() {
         return productDesc;
     }
 
-    public void setProductDesc(int productDesc) {
+    public void setProductDesc(String productDesc) {
         this.productDesc = productDesc;
     }
 
@@ -99,13 +103,23 @@ public class ProductDto {
         this.updatedDate = updatedDate;
     }
 
-    public ProductTypeDto getProductTypeDto() {
-        return productTypeDto;
+    public int getProductTypeId() {
+        return productTypeId;
     }
 
-    public void setProductTypeDto(ProductTypeDto productTypeDto) {
-        this.productTypeDto = productTypeDto;
+    public void setProductTypeId(int productTypeId) {
+        this.productTypeId = productTypeId;
     }
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
+    }
+
+    
 
     public List<ProductPictureDto> getProductPictureDtoList() {
         return productPictureDtoList;
@@ -121,6 +135,30 @@ public class ProductDto {
 
     public void setProductStockList(List<ProductStockDto> productStockList) {
         this.productStockList = productStockList;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     
     

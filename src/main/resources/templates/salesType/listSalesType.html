@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container-fluid">
+        <h1>Sales Type</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>Sales Type List</h3>
+                <a href="addSalesType">Add New Sales Type</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="salesType : ${salesTypes}">
+                            <td th:utext="${salesType.id}"></td>
+                            <td>
+                                <a th:utext="${salesType.name}"
+                                   th:href="@{'viewSalesType?id=' +${salesType.id} }"></a>
+                            </td>
+                            <td th:utext="${salesType.code}"></td>
+                            <td th:utext="${salesType.description}"></td>
+                            <td th:utext="${salesType.createdBy}"></td>
+                            <td th:utext="${salesType.createdDate}"></td>
+                            <td th:utext="${salesType.updatedBy}"></td>
+                            <td th:utext="${salesType.updatedDate}"></td>
+                            <td>
+                                <a th:utext="Remove" 
+                                   th:href="@{'removeSalesType?id=' +${salesType.id} }"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

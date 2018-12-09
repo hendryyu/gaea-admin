@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +29,10 @@ import javax.validation.constraints.Size;
  * @author hendryyu
  */
 @Entity
-@Table(name = "mst_contact_type")
+@Table(name = "lookup")
 @NamedQueries({
-    @NamedQuery(name = "MstContactType.findAll", query = "SELECT m FROM MstContactType m")})
-public class MstContactType implements Serializable {
+    @NamedQuery(name = "Lookup.findAll", query = "SELECT l FROM Lookup l")})
+public class Lookup implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +43,11 @@ public class MstContactType implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "lookup_name")
+    private String lookupName;
+    @Size(max = 255)
+    @Column(name = "lookup_desc")
+    private String lookupDesc;
     @Basic(optional = false)
     @NotNull
     @Column(name = "enable")
@@ -66,19 +68,19 @@ public class MstContactType implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mstContactType", fetch = FetchType.LAZY)
-    private List<Contact> contactList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lookup")
+    private List<LookupDetail> lookupDetailList;
 
-    public MstContactType() {
+    public Lookup() {
     }
 
-    public MstContactType(Integer id) {
+    public Lookup(Integer id) {
         this.id = id;
     }
 
-    public MstContactType(Integer id, String name, int enable, String createdBy, Date createdDate) {
+    public Lookup(Integer id, String lookupName, int enable, String createdBy, Date createdDate) {
         this.id = id;
-        this.name = name;
+        this.lookupName = lookupName;
         this.enable = enable;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
@@ -92,12 +94,20 @@ public class MstContactType implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLookupName() {
+        return lookupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLookupName(String lookupName) {
+        this.lookupName = lookupName;
+    }
+
+    public String getLookupDesc() {
+        return lookupDesc;
+    }
+
+    public void setLookupDesc(String lookupDesc) {
+        this.lookupDesc = lookupDesc;
     }
 
     public int getEnable() {
@@ -140,12 +150,12 @@ public class MstContactType implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public List<Contact> getContactList() {
-        return contactList;
+    public List<LookupDetail> getLookupDetailList() {
+        return lookupDetailList;
     }
 
-    public void setContactList(List<Contact> contactList) {
-        this.contactList = contactList;
+    public void setLookupDetailList(List<LookupDetail> lookupDetailList) {
+        this.lookupDetailList = lookupDetailList;
     }
 
     @Override
@@ -158,10 +168,10 @@ public class MstContactType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MstContactType)) {
+        if (!(object instanceof Lookup)) {
             return false;
         }
-        MstContactType other = (MstContactType) object;
+        Lookup other = (Lookup) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -170,7 +180,7 @@ public class MstContactType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hy.gaeaadmin.model.entity.MstContactType[ id=" + id + " ]";
+        return "com.hy.gaeaadmin.model.entity.Lookup[ id=" + id + " ]";
     }
     
 }

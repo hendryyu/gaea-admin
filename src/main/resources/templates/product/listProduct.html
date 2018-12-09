@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container-fluid">
+        <h1>Products</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <a href="addProduct" class="btn btn-default">Add New Product</a>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
+                    ...
+                </div>
+                <table class="table table-striped" id="product-tbl" th:fragment="product-tbl">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Base Price</th>
+                            <th>Size</th>
+                            <th>Note</th>
+                            <th>Type</th>
+                            <th th:if="${isModal == false}">Created By</th>
+                            <th th:if="${isModal == false}">Created Date</th>
+                            <th th:if="${isModal == false}">Updated By</th>
+                            <th th:if="${isModal == false}">Updated Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="product : ${products}">
+                            <td>
+                                <a th:utext="${product.productCode}" th:if="${isModal == false}"
+                                   th:href="@{'viewProduct?id=' +${product.id} }"></a>
+                                <p th:utext="${product.productCode}" th:if="${isModal == true}"></p>
+                            </td>
+                            <td th:utext="${product.productName}"></td>
+                            <td th:utext="${product.productDesc}"></td>
+                            <td th:utext="${product.basePrice}"></td>
+                            <td th:utext="${product.size}"></td>
+                            <td th:utext="${product.note}"></td>
+                            <td th:utext="${product.productTypeName}"></td>
+                            <td th:utext="${product.createdBy}" th:if="${isModal == false}"></td>
+                            <td th:utext="${product.createdDate}" th:if="${isModal == false}"></td>
+                            <td th:utext="${product.updatedBy}" th:if="${isModal == false}"></td>
+                            <td th:utext="${product.updatedDate}" th:if="${isModal == false}"></td>
+                            <td>
+                                <a th:utext="Remove"  th:if="${isModal == false}" th:href="@{'removeProduct?id=' +${product.id} }"></a>
+                                <a th:utext="Select" th:if="${isModal == true}" th:onclick="'javascript:modalSelectProduct(event,' + ${product.id} + ');'"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <script>
+                        $(document).ready(function () {
+                            var productTable = $('#product-tbl').DataTable();
+                            productTable.on('click', 'tr', function () {
+                                if ($(this).hasClass('selected')) {
+                                    $(this).removeClass('selected');
+                                } else {
+                                    productTable.$('tr.selected').removeClass('selected');
+                                    $(this).addClass('selected');
+                                }
+                            });
+                        });
+                    </script>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

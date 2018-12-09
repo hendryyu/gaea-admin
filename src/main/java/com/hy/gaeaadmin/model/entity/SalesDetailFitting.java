@@ -10,7 +10,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,10 +28,10 @@ import javax.validation.constraints.Size;
  * @author hendryyu
  */
 @Entity
-@Table(name = "product_pictures")
+@Table(name = "sales_detail_fitting")
 @NamedQueries({
-    @NamedQuery(name = "ProductPictures.findAll", query = "SELECT p FROM ProductPictures p")})
-public class ProductPictures implements Serializable {
+    @NamedQuery(name = "SalesDetailFitting.findAll", query = "SELECT s FROM SalesDetailFitting s")})
+public class SalesDetailFitting implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,6 +39,18 @@ public class ProductPictures implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fitting_date")
+    @Temporal(TemporalType.DATE)
+    private Date fittingDate;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "enable")
+    private int enable;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -50,44 +61,29 @@ public class ProductPictures implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.DATE)
     private Date createdDate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "enable")
-    private int enable;
-    @Size(max = 255)
-    @Column(name = "picture_description")
-    private String pictureDescription;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "picture_name")
-    private String pictureName;
-    @Size(max = 255)
-    @Column(name = "picture_url")
-    private String pictureUrl;
     @Size(max = 255)
     @Column(name = "updated_by")
     private String updatedBy;
     @Column(name = "updated_date")
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Product product;
+    @JoinColumn(name = "sales_detail_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private SalesDetail salesDetail;
 
-    public ProductPictures() {
+    public SalesDetailFitting() {
     }
 
-    public ProductPictures(Integer id) {
+    public SalesDetailFitting(Integer id) {
         this.id = id;
     }
 
-    public ProductPictures(Integer id, String createdBy, Date createdDate, int enable, String pictureName) {
+    public SalesDetailFitting(Integer id, Date fittingDate, int enable, String createdBy, Date createdDate) {
         this.id = id;
+        this.fittingDate = fittingDate;
+        this.enable = enable;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
-        this.enable = enable;
-        this.pictureName = pictureName;
     }
 
     public Integer getId() {
@@ -96,6 +92,30 @@ public class ProductPictures implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getFittingDate() {
+        return fittingDate;
+    }
+
+    public void setFittingDate(Date fittingDate) {
+        this.fittingDate = fittingDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public int getEnable() {
+        return enable;
+    }
+
+    public void setEnable(int enable) {
+        this.enable = enable;
     }
 
     public String getCreatedBy() {
@@ -114,38 +134,6 @@ public class ProductPictures implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public int getEnable() {
-        return enable;
-    }
-
-    public void setEnable(int enable) {
-        this.enable = enable;
-    }
-
-    public String getPictureDescription() {
-        return pictureDescription;
-    }
-
-    public void setPictureDescription(String pictureDescription) {
-        this.pictureDescription = pictureDescription;
-    }
-
-    public String getPictureName() {
-        return pictureName;
-    }
-
-    public void setPictureName(String pictureName) {
-        this.pictureName = pictureName;
-    }
-
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
-
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
-    }
-
     public String getUpdatedBy() {
         return updatedBy;
     }
@@ -162,12 +150,12 @@ public class ProductPictures implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public Product getProduct() {
-        return product;
+    public SalesDetail getSalesDetail() {
+        return salesDetail;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setSalesDetail(SalesDetail salesDetail) {
+        this.salesDetail = salesDetail;
     }
 
     @Override
@@ -180,10 +168,10 @@ public class ProductPictures implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProductPictures)) {
+        if (!(object instanceof SalesDetailFitting)) {
             return false;
         }
-        ProductPictures other = (ProductPictures) object;
+        SalesDetailFitting other = (SalesDetailFitting) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -192,7 +180,7 @@ public class ProductPictures implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hy.gaeaadmin.model.entity.ProductPictures[ id=" + id + " ]";
+        return "com.hy.gaeaadmin.model.entity.SalesDetailFitting[ id=" + id + " ]";
     }
     
 }

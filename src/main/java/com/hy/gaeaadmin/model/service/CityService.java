@@ -40,11 +40,11 @@ public class CityService {
     public void delete(Integer positionId){
         MstCity mstCity = cityRepo.findById(positionId).orElse(null);
         if(mstCity != null)
-        if(mstCity.getAddressList()!= null && mstCity.getAddressList().size() > 0) {
-            throw new RuntimeException("City cannot be deleted because data is already in use");
-        }else{
+//        if(mstCity.get()!= null && mstCity.getAddressList().size() > 0) {
+//            throw new RuntimeException("City cannot be deleted because data is already in use");
+//        }else{
             cityRepo.delete(mstCity);
-        }
+//        }
     }
     
     public CityDto findById(Integer positionId){
@@ -70,7 +70,7 @@ public class CityService {
                 result = this.convertToDto(cityRepo.save(mstCity));
             }
         } catch (ParseException ex) {
-            Logger.getLogger(EmployeeService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CityService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

@@ -5,14 +5,13 @@
  */
 package com.hy.gaeaadmin.model.repo;
 
-import com.hy.gaeaadmin.model.entity.Contact;
-import com.hy.gaeaadmin.model.inter.QueryPredicateExecutor;
+import com.hy.gaeaadmin.model.entity.SalesDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author hendryyu
  */
-public interface ContactRepo extends JpaRepository<Contact, Integer>, QueryPredicateExecutor<Contact> {
+public interface SalesDetailRepo extends JpaRepository<SalesDetail, Integer> {
     
 }

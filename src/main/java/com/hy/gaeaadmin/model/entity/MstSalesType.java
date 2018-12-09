@@ -9,18 +9,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,10 +29,10 @@ import javax.validation.constraints.Size;
  * @author hendryyu
  */
 @Entity
-@Table(name = "contact")
+@Table(name = "mst_sales_type")
 @NamedQueries({
-    @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c")})
-public class Contact implements Serializable {
+    @NamedQuery(name = "MstSalesType.findAll", query = "SELECT m FROM MstSalesType m")})
+public class MstSalesType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,8 +43,18 @@ public class Contact implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "value")
-    private String value;
+    @Column(name = "name")
+    private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "description")
+    private String description;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(name = "code")
+    private String code;
     @Basic(optional = false)
     @NotNull
     @Column(name = "enable")
@@ -68,35 +75,21 @@ public class Contact implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
-    @JoinTable(name = "employee_contact", joinColumns = {
-        @JoinColumn(name = "contact_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "employee_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
-    @JoinTable(name = "user_contact", joinColumns = {
-        @JoinColumn(name = "contact_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<User> userList;
-    @JoinTable(name = "customer_contact", joinColumns = {
-        @JoinColumn(name = "contact_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "customer_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Customer> customerList;
-    @JoinColumn(name = "contact_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private MstContactType mstContactType;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mstSalesType")
+    private List<Sales> salesList;
 
-    public Contact() {
+    public MstSalesType() {
     }
 
-    public Contact(Integer id) {
+    public MstSalesType(Integer id) {
         this.id = id;
     }
 
-    public Contact(Integer id, String value, int enable, String createdBy, Date createdDate) {
+    public MstSalesType(Integer id, String name, String description, String code, int enable, String createdBy, Date createdDate) {
         this.id = id;
-        this.value = value;
+        this.name = name;
+        this.description = description;
+        this.code = code;
         this.enable = enable;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
@@ -110,12 +103,28 @@ public class Contact implements Serializable {
         this.id = id;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public int getEnable() {
@@ -158,36 +167,12 @@ public class Contact implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public List<Sales> getSalesList() {
+        return salesList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
-    }
-
-    public MstContactType getMstContactType() {
-        return mstContactType;
-    }
-
-    public void setMstContactType(MstContactType mstContactType) {
-        this.mstContactType = mstContactType;
+    public void setSalesList(List<Sales> salesList) {
+        this.salesList = salesList;
     }
 
     @Override
@@ -200,10 +185,10 @@ public class Contact implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Contact)) {
+        if (!(object instanceof MstSalesType)) {
             return false;
         }
-        Contact other = (Contact) object;
+        MstSalesType other = (MstSalesType) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -212,7 +197,7 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hy.gaeaadmin.model.entity.Contact[ id=" + id + " ]";
+        return "com.hy.gaeaadmin.model.entity.MstSalesType[ id=" + id + " ]";
     }
     
 }

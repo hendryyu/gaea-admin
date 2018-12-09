@@ -50,7 +50,6 @@ public class CurrencyController {
     public String addCurrency(Model model) {
         CurrencyDto currencyDto = new CurrencyDto();
         model.addAttribute("currencyDto", currencyDto);
-        model.addAttribute("editMode", true);
         return FORM_VIEW_HTML;
     }
 
@@ -58,7 +57,6 @@ public class CurrencyController {
     public String viewCurrency(Model model, @RequestParam(value = "id", required = true) Integer currencyId) {
         CurrencyDto currencyDto = currencyService.findById(currencyId);
         model.addAttribute("currencyDto", currencyDto);
-        model.addAttribute("editMode", false);
         return FORM_VIEW_HTML;
     }
 
@@ -74,8 +72,6 @@ public class CurrencyController {
         }
 
         model.addAttribute("errorMessage", "Code and Name required");
-        model.addAttribute("editMode", true); 
-
         return FORM_VIEW_HTML;
     }
     

@@ -7,20 +7,21 @@
 
     <div th:replace="fragments/header :: header"/>
 
-    <div class="container">
+    <div class="container-fluid">
         <h1>Employee</h1>
         <br/>
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
-                <h3>Employee List</h3>
-                <a href="addEmployee">Add New Employee</a>
+                <a href="addEmployee" class="btn btn-default">Add New Employee</a>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Employee Number</th>
+                            <th>Employee Num</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>DOB</th>
+                            <th>Contact</th>
+                            <th>Address</th>
                             <th>Created By</th>
                             <th>Created Date</th>
                             <th>Updated By</th>
@@ -38,6 +39,16 @@
                             <td th:utext="${employee.lastName}"></td>
                             <td class="">
                                 <span th:utext="${employee.dateOfBirth}"></span>, <span th:utext="${employee.placeOfBirth}"></span>
+                            </td>
+                            <td >
+                                <p th:utext="${employee.contactPhone1}" th:if="${employee.contactPhone1 != ''}"></p>
+                                <p th:utext="${employee.contactPhone2}" th:if="${employee.contactPhone2 != ''}"></p>
+                                <p th:utext="${employee.contactEmail1}" th:if="${employee.contactEmail1 != ''}"></p>
+                                <p th:utext="${employee.contactEmail2}" th:if="${employee.contactEmail2 != ''}"></p>
+                            </td>
+                            <td >
+                                <p th:utext="${employee.addrStreet1}" th:if="${employee.addrStreet1 != ''}"></p>
+                                <p th:utext="${employee.addrStreet2}" th:if="${employee.addrStreet2 != ''}"></p>
                             </td>
                             <td th:utext="${employee.createdBy}"></td>
                             <td th:utext="${employee.createdDate}"></td>

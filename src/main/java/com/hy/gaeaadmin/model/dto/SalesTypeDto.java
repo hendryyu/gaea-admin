@@ -11,9 +11,11 @@ import java.util.Date;
  *
  * @author hendryyu
  */
-public class ContactTypeDto {
+public class SalesTypeDto {
     private Integer id;
     private String name;
+    private String description;
+    private String code;
     private int enable;
     private String createdBy;
     private Date createdDate;
@@ -34,6 +36,14 @@ public class ContactTypeDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getEnable() {
@@ -75,6 +85,13 @@ public class ContactTypeDto {
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
-    
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
     
 }

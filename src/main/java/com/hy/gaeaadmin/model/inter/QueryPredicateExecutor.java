@@ -5,7 +5,7 @@
  */
 package com.hy.gaeaadmin.model.inter;
 
-import com.querydsl.core.types.OrderSpecifier;
+//import com.querydsl.core.types.OrderSpecifier;
 import java.util.Optional;
 import java.util.function.Predicate;
 import org.hibernate.annotations.Sort;

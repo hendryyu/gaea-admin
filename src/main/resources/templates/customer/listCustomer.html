@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container-fluid">
+        <h1>Customer</h1>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <a href="addCustomer" class="btn btn-default">Add New Customer</a>
+                <table class="table table-striped" id="customer-tbl" th:fragment="customer-tbl">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th th:if="${isModal == false}">DOB</th>
+                            <th>Contact</th>
+                            <th th:if="${isModal == false}">Address</th>
+                            <th th:if="${isModal == false}">Created By</th>
+                            <th th:if="${isModal == false}">Created Date</th>
+                            <th th:if="${isModal == false}">Updated By</th>
+                            <th th:if="${isModal == false}">Updated Date</th>
+                            <th ></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="customer : ${customers}">
+                            <td>
+                                <a th:href="@{'viewCustomer?id=' +${customer.id} }" th:if="${isModal == false}">
+                                    <span th:utext="${customer.firstName}"></span> <span th:utext="${customer.lastName}"></span>
+                                </a>
+                                <p th:if="${isModal == true}">
+                                    <span th:utext="${customer.firstName}"></span> <span th:utext="${customer.lastName}"></span>
+                                </p>
+                            </td>
+                            <td th:if="${isModal == false}">
+                                <span th:utext="${customer.dateOfBirth}"></span>, <span th:utext="${customer.placeOfBirth}"></span>
+                            </td>
+                            <td >
+                                <p th:utext="${customer.contactPhone1}" th:if="${customer.contactPhone1 != ''}"></p>
+                                <p th:utext="${customer.contactPhone2}" th:if="${customer.contactPhone2 != ''}"></p>
+                                <p th:utext="${customer.contactEmail1}" th:if="${customer.contactEmail1 != ''}"></p>
+                                <p th:utext="${customer.contactEmail2}" th:if="${customer.contactEmail2 != ''}"></p>
+                            </td>
+                            <td th:if="${isModal == false}">
+                                <p th:utext="${customer.addrStreet1}" th:if="${customer.addrStreet1 != ''}"></p>
+                                <p th:utext="${customer.addrStreet2}" th:if="${customer.addrStreet2 != ''}"></p>
+                            </td>
+                            <td th:utext="${customer.createdBy}" th:if="${isModal == false}"></td>
+                            <td th:utext="${customer.createdDate}" th:if="${isModal == false}"></td>
+                            <td th:utext="${customer.updatedBy}" th:if="${isModal == false}"></td>
+                            <td th:utext="${customer.updatedDate}" th:if="${isModal == false}"></td>
+                            <td>
+                                <a th:utext="Remove" th:if="${isModal == false}"
+                                   th:href="@{'removeCustomer?id=' +${customer.id} }"></a>
+                                <a th:utext="Select" th:if="${isModal == true}" th:onclick="'javascript:modalSelectCustomer(event,' + ${customer.id} + ');'"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <script>
+                        $(document).ready(function () {
+                            var customerTable = $('#customer-tbl').DataTable();
+                            customerTable.on('click', 'tr', function () {
+                                if ($(this).hasClass('selected')) {
+                                    $(this).removeClass('selected');
+                                } else {
+                                    customerTable.$('tr.selected').removeClass('selected');
+                                    $(this).addClass('selected');
+                                }
+                            });
+                        });
+                    </script>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+    <!-- /.container -->
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

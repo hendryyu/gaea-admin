@@ -50,7 +50,6 @@ public class ProductTypeController {
     public String addProductType(Model model) {
         ProductTypeDto productTypeDto = new ProductTypeDto();
         model.addAttribute("productTypeDto", productTypeDto);
-        model.addAttribute("editMode", true);
         return FORM_VIEW_HTML;
     }
 
@@ -58,7 +57,6 @@ public class ProductTypeController {
     public String viewProductType(Model model, @RequestParam(value = "id", required = true) Integer productTypeId) {
         ProductTypeDto productTypeDto = productTypeService.findById(productTypeId);
         model.addAttribute("productTypeDto", productTypeDto);
-        model.addAttribute("editMode", false);
         return FORM_VIEW_HTML;
     }
 
@@ -74,8 +72,6 @@ public class ProductTypeController {
         }
 
         model.addAttribute("errorMessage", "Product Type Name and Description required");
-        model.addAttribute("editMode", true); 
-
         return FORM_VIEW_HTML;
     }
     

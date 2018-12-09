@@ -16,12 +16,13 @@ public class ProductPictureDto {
     private String pictureName;
     private String pictureDescription;
     private String pictureUrl;
+    private byte[] pictureBlob;
     private int enable;
     private String createdBy;
     private Date createdDate;
     private String updatedBy;
     private Date updatedDate;
-    private ProductDto productDto;
+    private int productId;
 
     public Integer getId() {
         return id;
@@ -95,12 +96,22 @@ public class ProductPictureDto {
         this.updatedDate = updatedDate;
     }
 
-    public ProductDto getProductDto() {
-        return productDto;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProductDto(ProductDto productDto) {
-        this.productDto = productDto;
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    
+
+    public byte[] getPictureBlob() {
+        return pictureBlob;
+    }
+
+    public void setPictureBlob(byte[] pictureBlob) {
+        this.pictureBlob = pictureBlob;
     }
     
     

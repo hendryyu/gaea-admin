@@ -10,11 +10,11 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -51,6 +51,9 @@ public class ProductPicture implements Serializable {
     @Size(max = 255)
     @Column(name = "picture_url")
     private String pictureUrl;
+    @Lob
+    @Column(name = "picture_blob")
+    private byte[] pictureBlob;
     @Basic(optional = false)
     @NotNull
     @Column(name = "enable")
@@ -72,7 +75,7 @@ public class ProductPicture implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Product product;
 
     public ProductPicture() {
@@ -120,6 +123,14 @@ public class ProductPicture implements Serializable {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    public byte[] getPictureBlob() {
+        return pictureBlob;
+    }
+
+    public void setPictureBlob(byte[] pictureBlob) {
+        this.pictureBlob = pictureBlob;
     }
 
     public int getEnable() {

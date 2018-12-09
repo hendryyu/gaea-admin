@@ -50,7 +50,6 @@ public class UomController {
     public String addUom(Model model) {
         UomDto uomDto = new UomDto();
         model.addAttribute("uomDto", uomDto);
-        model.addAttribute("editMode", true);
         return FORM_VIEW_HTML;
     }
 
@@ -58,7 +57,6 @@ public class UomController {
     public String viewUom(Model model, @RequestParam(value = "id", required = true) Integer uomId) {
         UomDto uomDto = uomService.findById(uomId);
         model.addAttribute("uomDto", uomDto);
-        model.addAttribute("editMode", false);
         return FORM_VIEW_HTML;
     }
 
@@ -74,7 +72,6 @@ public class UomController {
         }
 
         model.addAttribute("errorMessage", "UOM Name and Description required");
-        model.addAttribute("editMode", true); 
 
         return FORM_VIEW_HTML;
     }

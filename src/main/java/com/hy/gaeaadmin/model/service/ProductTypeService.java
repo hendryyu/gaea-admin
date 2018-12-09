@@ -70,7 +70,7 @@ public class ProductTypeService {
                 result = this.convertToDto(productTypeRepo.save(mstProductType));
             }
         } catch (ParseException ex) {
-            Logger.getLogger(EmployeeService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductTypeService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

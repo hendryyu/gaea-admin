@@ -70,7 +70,7 @@ public class SalaryTypeService {
                 result = this.convertToDto(salaryTypeRepo.save(mstSalaryType));
             }
         } catch (ParseException ex) {
-            Logger.getLogger(EmployeeService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SalaryTypeService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

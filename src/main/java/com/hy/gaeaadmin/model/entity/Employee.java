@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -63,6 +62,28 @@ public class Employee implements Serializable {
     @Size(max = 255)
     @Column(name = "place_of_birth")
     private String placeOfBirth;
+    @Size(max = 255)
+    @Column(name = "addr_street1")
+    private String addrStreet1;
+    @Size(max = 255)
+    @Column(name = "addr_street2")
+    private String addrStreet2;
+    @Column(name = "addr_postal_code")
+    private Integer addrPostalCode;
+    @Column(name = "addr_city_id")
+    private Integer addrCityId;
+    @Size(max = 255)
+    @Column(name = "contact_phone1")
+    private String contactPhone1;
+    @Size(max = 255)
+    @Column(name = "contact_phone2")
+    private String contactPhone2;
+    @Size(max = 255)
+    @Column(name = "contact_email1")
+    private String contactEmail1;
+    @Size(max = 255)
+    @Column(name = "contact_email2")
+    private String contactEmail2;
     @Basic(optional = false)
     @NotNull
     @Column(name = "enable")
@@ -83,16 +104,12 @@ public class Employee implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.DATE)
     private Date updatedDate;
-    @ManyToMany(mappedBy = "employeeList", fetch = FetchType.LAZY)
-    private List<Address> addressList;
-    @ManyToMany(mappedBy = "employeeList", fetch = FetchType.LAZY)
-    private List<Contact> contactList;
     @JoinTable(name = "employee_position", joinColumns = {
         @JoinColumn(name = "employee_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "position_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<MstPosition> mstPositionList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private List<EmployeeSalary> employeeSalaryList;
 
     public Employee() {
@@ -159,6 +176,70 @@ public class Employee implements Serializable {
         this.placeOfBirth = placeOfBirth;
     }
 
+    public String getAddrStreet1() {
+        return addrStreet1;
+    }
+
+    public void setAddrStreet1(String addrStreet1) {
+        this.addrStreet1 = addrStreet1;
+    }
+
+    public String getAddrStreet2() {
+        return addrStreet2;
+    }
+
+    public void setAddrStreet2(String addrStreet2) {
+        this.addrStreet2 = addrStreet2;
+    }
+
+    public Integer getAddrPostalCode() {
+        return addrPostalCode;
+    }
+
+    public void setAddrPostalCode(Integer addrPostalCode) {
+        this.addrPostalCode = addrPostalCode;
+    }
+
+    public Integer getAddrCityId() {
+        return addrCityId;
+    }
+
+    public void setAddrCityId(Integer addrCityId) {
+        this.addrCityId = addrCityId;
+    }
+
+    public String getContactPhone1() {
+        return contactPhone1;
+    }
+
+    public void setContactPhone1(String contactPhone1) {
+        this.contactPhone1 = contactPhone1;
+    }
+
+    public String getContactPhone2() {
+        return contactPhone2;
+    }
+
+    public void setContactPhone2(String contactPhone2) {
+        this.contactPhone2 = contactPhone2;
+    }
+
+    public String getContactEmail1() {
+        return contactEmail1;
+    }
+
+    public void setContactEmail1(String contactEmail1) {
+        this.contactEmail1 = contactEmail1;
+    }
+
+    public String getContactEmail2() {
+        return contactEmail2;
+    }
+
+    public void setContactEmail2(String contactEmail2) {
+        this.contactEmail2 = contactEmail2;
+    }
+
     public int getEnable() {
         return enable;
     }
@@ -197,22 +278,6 @@ public class Employee implements Serializable {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
-    }
-
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
-    }
-
-    public List<Contact> getContactList() {
-        return contactList;
-    }
-
-    public void setContactList(List<Contact> contactList) {
-        this.contactList = contactList;
     }
 
     public List<MstPosition> getMstPositionList() {

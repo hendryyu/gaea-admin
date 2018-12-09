@@ -6,23 +6,24 @@
 package com.hy.gaeaadmin.model.dto;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author hendryyu
  */
-public class AddressDto {
-    
+public class SalesDetailDto {
     private Integer id;
-    private String street1;
-    private String street2;
-    private String postalCode;
+    private double salesPrice;
+    private String note;
     private int enable;
     private String createdBy;
     private Date createdDate;
     private String updatedBy;
     private Date updatedDate;
-    private CityDto cityDto;
+    private List<SalesDetailFittingDto> salesDetailFittingDtoList;
+    private ProductDto productDto;
+    private int salesId;
 
     public Integer getId() {
         return id;
@@ -32,30 +33,20 @@ public class AddressDto {
         this.id = id;
     }
 
-    
-
-    public String getStreet1() {
-        return street1;
+    public double getSalesPrice() {
+        return salesPrice;
     }
 
-    public void setStreet1(String street1) {
-        this.street1 = street1;
+    public void setSalesPrice(double salesPrice) {
+        this.salesPrice = salesPrice;
     }
 
-    public String getStreet2() {
-        return street2;
+    public String getNote() {
+        return note;
     }
 
-    public void setStreet2(String street2) {
-        this.street2 = street2;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public int getEnable() {
@@ -98,13 +89,30 @@ public class AddressDto {
         this.updatedDate = updatedDate;
     }
 
-    public CityDto getCityDto() {
-        return cityDto;
+    public List<SalesDetailFittingDto> getSalesDetailFittingDtoList() {
+        return salesDetailFittingDtoList;
     }
 
-    public void setCityDto(CityDto cityDto) {
-        this.cityDto = cityDto;
+    public void setSalesDetailFittingDtoList(List<SalesDetailFittingDto> salesDetailFittingDtoList) {
+        this.salesDetailFittingDtoList = salesDetailFittingDtoList;
     }
+
+    public ProductDto getProductDto() {
+        return productDto;
+    }
+
+    public void setProductDto(ProductDto productDto) {
+        this.productDto = productDto;
+    }
+
+    public int getSalesId() {
+        return salesId;
+    }
+
+    public void setSalesId(int salesId) {
+        this.salesId = salesId;
+    }
+
     
     
 }

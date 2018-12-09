@@ -9,23 +9,19 @@ package com.hy.gaeaadmin.model.dto;
  *
  * @author hendryyu
  */
-public class ContactFormDto {
-    
+public class PositionFormDto {
+    private Integer positionId;
     private Integer employeeId;
-    private Integer typeId;
-    private String value;
+
+    public Integer getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Integer positionId) {
+        this.positionId = positionId;
+    }
+
     
-    public ContactFormDto(){
-        
-    }
-
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -34,16 +30,5 @@ public class ContactFormDto {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
-    
-
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-    
     
 }
